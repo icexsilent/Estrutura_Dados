@@ -4,7 +4,7 @@ public class Solicitacao {
     private String solicitante;
     private String descricao;
     private String categoria;
-    private Int prioridade;
+    private int prioridade;
     private String status;
 
     // Construtor: usado para criar uma nova solicitação já com os dados iniciais
@@ -73,6 +73,9 @@ public class Solicitacao {
         this.status = status;
     } 
 
-
+    @Override
+    public String toString() {
+        return "Req " + codigo + " (" + categoria + ") - Status: " + status;
+    }
 
 }

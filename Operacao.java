@@ -17,4 +17,10 @@ public class Operacao {
     public Solicitacao getSolicitacao() {
         return solicitacao;
     }
+
+    @Override
+    public String toString() {
+        return "Operação: " + tipo + " | Solicitação nº: " + solicitacao.getCodigo();
+    }
+    
 }

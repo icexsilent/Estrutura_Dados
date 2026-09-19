@@ -18,6 +18,7 @@ public class Main {
             System.out.println("6 - Consultar última operação realizada");
             System.out.println("7 - Exibir histórico de operações");
             System.out.println("8 - Desfazer última operação");
+            System.out.println("9 - Inserir dados de teste (Carga rápida)");
             System.out.println("0 - Encerrar");
             System.out.print("Escolha uma opção: ");
             
@@ -59,9 +60,23 @@ public class Main {
                     central.exibirQuantidade();
                     break;
                 case 6:
+                    central.consultarUltimaOperacao();
+                    break;
                 case 7:
+                    central.exibirHistorico();
+                    break;
                 case 8:
-                    System.out.println("Funcionalidade da Pilha em desenvolvimento...");
+                    System.out.println("Funcionalidade 'Desfazer' em desenvolvimento pelo grupo...");
+                    // central.desfazerOperacao(); <-- Ele vai criar e chamar o método dele aqui depois
+                    break;
+                case 9:
+                    // CARGA RÁPIDA DE TESTES
+                    System.out.println("\n[DEBUG] Inserindo solicitações de teste...");
+                    central.cadastrarSolicitacao(new Solicitacao(101, "Ana Silva", "Computador não liga", "Hardware", 1, "AGUARDANDO"));
+                    central.cadastrarSolicitacao(new Solicitacao(102, "Bruno Souza", "Sem acesso à internet", "Redes", 2, "AGUARDANDO"));
+                    central.cadastrarSolicitacao(new Solicitacao(103, "Carlos Dias", "Impressora sem tinta", "Hardware", 3, "AGUARDANDO"));
+                    central.cadastrarSolicitacao(new Solicitacao(104, "Daniela Costa", "Esqueci a senha do sistema", "Acesso", 1, "AGUARDANDO"));
+                    System.out.println("[DEBUG] 4 solicitações de teste foram adicionadas à fila!");
                     break;
                 case 0:
                     System.out.println("Encerrando o sistema...");

@@ -1,6 +1,3 @@
-import _AFilaCircularGenerica.FilaCircular;
-// Importe a sua Pilha aqui também quando criá-la
-
 public class CentralAtendimento {
     private FilaCircular<Solicitacao> filaDeEspera;
     private Pilha<Operacao> historico; // Assumindo que você criou a Pilha baseada no PDF da aula 5
@@ -10,6 +7,7 @@ public class CentralAtendimento {
         this.filaDeEspera = new FilaCircular<>(50); 
         this.historico = new Pilha<>(50);
     }
+    
 
     // Opção 1: Cadastrar nova solicitação
     public void cadastrarSolicitacao(Solicitacao s) {
@@ -66,4 +64,32 @@ public class CentralAtendimento {
     public void exibirQuantidade() {
         System.out.println("Quantidade de solicitações aguardando: " + filaDeEspera.totalElementos());
     }
+
+    // Opção 6: Consultar última operação realizada
+    public void consultarUltimaOperacao() {
+        try {
+            if (!historico.isEmpty()) {
+                // Usamos o método topo() para apenas "espiar", sem remover da pilha
+                Operacao ultima = historico.topo();
+                System.out.println("A última operação registrada foi:");
+                System.out.println(ultima.toString()); // Usa o toString que você acabou de criar!
+            } else {
+                System.out.println("Nenhuma operação foi realizada ainda (Histórico vazio).");
+            }
+        } catch (Exception e) {
+            System.out.println("Erro ao consultar histórico: " + e.getMessage());
+        }
+    }
+
+    // Opção 7: Exibir histórico de operações
+    public void exibirHistorico() {
+        if (historico.isEmpty()) {
+            System.out.println("O histórico de operações está vazio.");
+        } else {
+            System.out.println("\n--- Histórico de Operações (Da mais recente para a mais antiga) ---");
+            // Como adicionamos o toString() na classe Pilha, basta mandar imprimir o objeto!
+            System.out.println(historico.toString());
+        }
+    }
+
 }
