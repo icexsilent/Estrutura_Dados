@@ -92,4 +92,48 @@ public class CentralAtendimento {
         }
     }
 
+    // Opção 8: Desfazer última operação
+    public void desfazerOperacao() {
+        try {
+            if (historico.isEmpty()) {
+                System.out.println("Não há operações no histórico para desfazer.");
+                return;
+            }
+
+            // Verifica qual é a operação no topo da pilha sem a remover logo
+            Operacao ultima = historico.topo();
+
+            if (ultima.getTipo().equals("ATENDIMENTO")) {
+                // Remove a operação da pilha definitivamente
+                historico.pop();
+                
+                // Recupera a solicitação e repõe o status
+                Solicitacao s = ultima.getSolicitacao();
+                s.setStatus("AGUARDANDO");
+
+                // Cria uma fila auxiliar com a mesma capacidade da original
+                FilaCircular<Solicitacao> filaAuxiliar = new FilaCircular<>(50);
+                
+                // 1º passo: insere a solicitação desfeita (para ficar no início)
+                filaAuxiliar.enqueue(s);
+
+                // 2º passo: transfere todas as solicitações que já estavam na fila de espera
+                while (!filaDeEspera.qIsEmpty()) {
+                    filaAuxiliar.enqueue(filaDeEspera.dequeue());
+                }
+
+                // 3º passo: a fila de espera principal passa a apontar para a fila auxiliar
+                filaDeEspera = filaAuxiliar;
+
+                System.out.println("Atendimento desfeito! A solicitação " + s.getCodigo() + " retornou ao início da fila de espera.");
+            } else {
+                // Regra do projeto: se não for "ATENDIMENTO", exibe uma mensagem adequada
+                System.out.println("A última operação registada foi um(a) '" + ultima.getTipo() + "'. Apenas operações de 'ATENDIMENTO' podem ser desfeitas nesta fase.");
+            }
+
+        } catch (Exception e) {
+            System.out.println("Erro ao tentar desfazer a operação: " + e.getMessage());
+        }
+    }
+
 }
